@@ -1,5 +1,5 @@
 import arrow from 'src/images/arrow.svg';
-
+import { MouseEvent } from 'react';
 import styles from './ArrowButton.module.scss';
 import clsx from 'clsx';
 
@@ -12,6 +12,10 @@ type ArrowButtonProps = {
 };
 
 export const ArrowButton = ({ isOpen, onClick }: ArrowButtonProps) => {
+	const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+		e.stopPropagation();
+	};
+
 	return (
 		/* Не забываем указаывать role и aria-label атрибуты для интерактивных элементов */
 		<div
@@ -19,7 +23,8 @@ export const ArrowButton = ({ isOpen, onClick }: ArrowButtonProps) => {
 			aria-label='Открыть/Закрыть форму параметров статьи'
 			tabIndex={0}
 			className={clsx(styles.container, { [styles.container_open]: isOpen })}
-			onClick={onClick}>
+			onClick={onClick}
+			onMouseDown={onMouseDown}>
 			<img
 				src={arrow}
 				alt='иконка стрелочки'
